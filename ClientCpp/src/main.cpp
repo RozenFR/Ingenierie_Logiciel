@@ -36,20 +36,30 @@ int main() {
         cout << "- The end" << endl;
         cout << "1 for Rectangle, 2 for Circle or 0 to Leave" << endl;
 
-        Form * form = formService->getForm("2");
-        // cout << "Form : " << *form << endl;
+        char input[L];
+        cout << "Choice : " << endl;
+        cin >> input;
 
-        string sform = (string) *form;
-        // cout << "SForm : " << sform << endl;
+        bool leaving = strcmp(input, "0") != 0;
 
-        int size = sform.length();
-        char * c = new char[size + 1];
-        strcpy(c, sform.c_str());
-        // cout << c << endl;
+        if (leaving) {
 
-        socket->Send(c);
+            Form *form = formService->getForm(input);
+            // cout << "Form : " << *form << endl;
 
-        cout << "out" << endl;
+            string sform = (string) *form;
+            // cout << "SForm : " << sform << endl;
+
+            int size = sform.length();
+            // cout << "Size : " << size << endl;
+            char c[size + 1];
+            strcpy(c, sform.c_str());
+            // cout << c << endl;
+
+            socket->Send(c);
+        }
+
+        cout << "Client has been closed." << endl;
 
     } catch (Error err) {
         cerr << err << endl;

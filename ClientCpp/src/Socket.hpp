@@ -84,13 +84,15 @@ public:
     /**
      * Close connexion of Server
      */
-    void Close() {
+    void Close() const {
         int err;
         err = shutdown(m_socket, SD_BOTH); // Close send and receive
         if (err) throw Error("Fail to disconnect from server. " + to_string(WSAGetLastError()));
 
         err = closesocket(m_socket); // Renvoie une valeur non nulle en cas d'échec.
         if (err) throw Error("Fail to close socket. " + to_string(WSAGetLastError()));
+
+        WSACleanup();
 
         cout << "Stopping Server." << endl;
     }
@@ -99,7 +101,6 @@ public:
     * Sending to Client
     */
     void Send(char * request) const {
-
         cout << "Try to connect to server ..." << endl;
         int err;
         err = connect(m_socket, (SOCKADDR *) &m_sockAddrIn, sizeof(m_sockAddrIn));
@@ -108,20 +109,23 @@ public:
 
         // Pour que le serveur réceptionne bien le message
         strcat(request, "\r\n");
-        int max_len = strlen(request);
+        int l = strlen(request);
 
         // Envoie de la requête au serveur, au plus max_len octets
-        err = send(m_socket, request, max_len, 0);
+        cout << "Sending ..." << endl;
+        err = send(m_socket, request, l, 0);
         if (err == SOCKET_ERROR) throw Error("Fail to send request to Server.");
+        cout << "Message has been sent !" << endl;
 
-        char * answer;
-
+        char answer[l + 1];
+        cout << "Waiting for answer ..." << endl;
         // Réception de la réponse du serveur, au plus l octets
-        err = recv(m_socket, answer, max_len, 0);
+        err = recv(m_socket, answer, l, 0);
         if (err == SOCKET_ERROR) throw Error("Fail to receive Server Response.");
+
+        cout << answer << endl;
         char * p = strchr(answer, '\n');
         *p = '\0';
-        cout << answer << endl;
     }
 
 };
