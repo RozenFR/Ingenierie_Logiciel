@@ -15,33 +15,37 @@ class FormServiceCOR {
 protected:
     FormServiceCOR * m_next;
 public:
-    FormServiceCOR() : m_next(nullptr) {
-    }
-
-    FormServiceCOR(FormServiceCOR * fs) : m_next(fs) {
-
-    }
 
     FormServiceCOR * setNext(FormServiceCOR * formService) {
         m_next = formService;
         return m_next;
     }
 
-    Form * solve(string input) const {
+    FormServiceCOR *getNext() const {
+        return m_next;
+    }
 
-        if (m_next == nullptr) throw FormServiceException("Not in range of selection.");
-        if (input == "") throw FormServiceException("Input is empty.");
+    Form * solve(string input) {
+        if (m_next == NULL) throw FormServiceException("Not in range of selection.");
 
         if (isForm(input)) {
             return solveForm();
         } else {
             return m_next->solve(input);
         }
-
+    }
+    virtual operator string() const {
+        ostringstream oss;
+        oss << "[FormServiceCOR]";
+        return oss.str();
     }
 
-    virtual Form * solveForm() const = 0;
-    virtual bool isForm(const string input) const = 0;
+    virtual Form * solveForm() = 0;
+    virtual bool isForm(string input) = 0;
+};
+
+inline ostream& operator<<(ostream &os, const FormServiceCOR &f) {
+    return os << (string) f << " - " << (string) *f.getNext();
 };
 
 

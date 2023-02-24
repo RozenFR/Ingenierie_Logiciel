@@ -8,9 +8,9 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include "form/Cross.hpp"
-#include "form/Circle.hpp"
-#include "form/Rectangle.hpp"
+#include "Cross.hpp"
+#include "Circle.hpp"
+#include "Rect.hpp"
 
 using namespace std;
 
@@ -18,7 +18,7 @@ class VisitorForme {
 public:
     virtual void visite(const Cross * croix) const = 0;
     virtual void visite(const Circle * rond) const = 0;
-    virtual void visite(const Rectangle * rond) const = 0;
+    virtual void visite(const Rect * rond) const = 0;
 };
 
 

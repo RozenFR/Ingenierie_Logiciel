@@ -16,16 +16,14 @@ protected:
     double m_yCenter;
     double m_radius;
 public:
-    Circle() {
-
-    }
-
     Circle(double x, double y, double radius) : m_xCenter(x), m_yCenter(y), m_radius(radius) {
     }
 
+    virtual ~Circle() {}
+
     virtual operator string() const {
         ostringstream oss;
-        oss << "(" << m_xCenter << ", " << m_yCenter << ");" << m_radius;
+        oss << "(" << m_xCenter << "," << m_yCenter << ");" << m_radius;
         return oss.str();
     }
 

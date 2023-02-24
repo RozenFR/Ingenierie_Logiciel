@@ -7,7 +7,7 @@
  */
 #include <iostream>
 #include <winsock2.h>
-#include "../include/Error.hpp"
+#include "Error.hpp"
 
 using namespace std;
 

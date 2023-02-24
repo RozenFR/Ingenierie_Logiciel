@@ -14,23 +14,22 @@ using namespace std;
 
 class FormService {
 protected:
-    FormServiceCOR * m_fs;
+
+    Form * processInput(string input) {
+        FormServiceCOR * fs;
+        fs = new class RectangleServiceCOR(new class CircleServiceCOR());
+        Form * form = fs->solve(input);
+        return form;
+    }
+
 public:
     FormService() {
-        FormServiceCOR *rect, *rond;
-        // Create New Chain of the COR
-        rect = new RectangleServiceCOR();
-        rond = new CircleServiceCOR();
 
-        // Set Next
-        rect->setNext(rond);
-        m_fs = rect;
     }
 
-    Form * processInput(const string input) {
-        return m_fs->solve(input);
+    Form * getForm(string input) {
+        return processInput(input);
     }
-
 };
 
 
