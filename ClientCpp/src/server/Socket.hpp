@@ -10,7 +10,7 @@
 #include <string>
 #include <sstream>
 #include <winsock2.h>
-#include "Error.hpp"
+#include "../Error.hpp"
 
 using namespace std;
 
@@ -79,6 +79,12 @@ public:
     void Open(char * adrServ, short portServ) {
         SetSocket();
         SetUpProxy(adrServ, portServ);
+
+        cout << "Try to connect to server ..." << endl;
+        int err;
+        err = connect(m_socket, (SOCKADDR *) &m_sockAddrIn, sizeof(m_sockAddrIn));
+        if (err == SOCKET_ERROR) throw Error("Fail to connect.");
+        cout << "Successful Connexion !" << endl;
     }
 
     /**
@@ -101,11 +107,7 @@ public:
     * Sending to Client
     */
     void Send(char * request) const {
-        cout << "Try to connect to server ..." << endl;
         int err;
-        err = connect(m_socket, (SOCKADDR *) &m_sockAddrIn, sizeof(m_sockAddrIn));
-        if (err == SOCKET_ERROR) throw Error("Fail to connect.");
-        cout << "Successful Connexion !" << endl;
 
         // Pour que le serveur réceptionne bien le message
         strcat(request, "\r\n");
@@ -124,8 +126,6 @@ public:
         if (err == SOCKET_ERROR) throw Error("Fail to receive Server Response.");
 
         cout << answer << endl;
-        char * p = strchr(answer, '\n');
-        *p = '\0';
     }
 
 };

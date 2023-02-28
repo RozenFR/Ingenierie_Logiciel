@@ -2,9 +2,9 @@
 // Created by iamze on 12/12/2022.
 //
 
-#include "VisitorForme.hpp"
+#include "visitor/VisitorForm.hpp"
 #include "Cross.hpp"
 
-void Cross::accept(const VisitorForme * vf) const {
+void Cross::accept(VisitorForm * vf) {
     vf->visite(this);
 }

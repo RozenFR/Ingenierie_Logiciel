@@ -2,9 +2,9 @@
 // Created by iamze on 23/02/2023.
 //
 
-#include "VisitorForme.hpp"
+#include "visitor/VisitorForm.hpp"
 #include "Rect.hpp"
 
-void Rect::accept(const VisitorForme *vf) const {
+void Rect::accept(VisitorForm *vf) {
     vf->visite(this);
 }

@@ -10,7 +10,7 @@
 #include <string>
 #include <sstream>
 #include <winsock2.h>
-#include "Error.hpp"
+#include "../Error.hpp"
 
 using namespace std;
 

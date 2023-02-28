@@ -24,7 +24,7 @@ public:
         return oss.str();
     }
 
-    virtual void accept(const VisitorForme *vf) const;
+    virtual void accept(VisitorForm *vf);
 };
 
 

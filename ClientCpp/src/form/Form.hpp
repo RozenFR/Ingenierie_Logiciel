@@ -9,17 +9,17 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include "Error.hpp"
+#include "../Error.hpp"
 
 using namespace std;
 
-class VisitorForme;
+class VisitorForm;
 
 class Form {
 public:
     virtual operator string() const = 0;
     virtual double aire() const = 0;
-    virtual void accept(const VisitorForme * vf) const = 0;
+    virtual void accept(VisitorForm * vf) = 0;
 };
 
 inline ostream& operator<<(ostream &os, const Form &f) {

@@ -1,0 +1,14 @@
+//
+// Created by iamze on 01/03/2023.
+//
+
+#ifndef CLIENTCPP_FORMSERVICEMODIFYCOR_HPP
+#define CLIENTCPP_FORMSERVICEMODIFYCOR_HPP
+
+
+class FormServiceModifyCOR {
+    // TODO
+};
+
+
+#endif //CLIENTCPP_FORMSERVICEMODIFYCOR_HPP

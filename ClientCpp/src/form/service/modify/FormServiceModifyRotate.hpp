@@ -1,0 +1,14 @@
+//
+// Created by iamze on 01/03/2023.
+//
+
+#ifndef CLIENTCPP_FORMSERVICEMODIFYROTATE_HPP
+#define CLIENTCPP_FORMSERVICEMODIFYROTATE_HPP
+
+
+class FormServiceModifyRotate {
+    // TODO
+};
+
+
+#endif //CLIENTCPP_FORMSERVICEMODIFYROTATE_HPP

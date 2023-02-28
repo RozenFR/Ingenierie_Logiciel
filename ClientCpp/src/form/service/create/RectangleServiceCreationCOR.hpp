@@ -2,27 +2,27 @@
 // Created by iamze on 23/02/2023.
 //
 
-#ifndef CLIENTCPP_RECTANGLESERVICECOR_HPP
-#define CLIENTCPP_RECTANGLESERVICECOR_HPP
+#ifndef CLIENTCPP_RECTANGLESERVICECREATIONCOR_HPP
+#define CLIENTCPP_RECTANGLESERVICECREATIONCOR_HPP
 
 #pragma once
-#include "FormServiceCOR.hpp"
-#include "FormServiceException.hpp"
-#include "Rect.hpp"
-#include "CircleServiceCOR.hpp"
+#include "FormServiceCreationCOR.hpp"
+#include "../FormServiceException.hpp"
+#include "../../Rect.hpp"
+#include "CircleServiceCreationCOR.hpp"
 
-class RectangleServiceCOR : public FormServiceCOR {
+class RectangleServiceCreationCOR : public FormServiceCreationCOR {
 public:
 
-    RectangleServiceCOR() {
+    RectangleServiceCreationCOR() {
 
     }
 
-    RectangleServiceCOR(FormServiceCOR * fs) {
+    RectangleServiceCreationCOR(FormServiceCreationCOR * fs) {
         setNext(fs);
     }
 
-    virtual Form * solveForm() {
+    virtual void solveForm() const {
         double x1, y1;
         double x2, y2;
         double x3, y3;
@@ -57,11 +57,11 @@ public:
         cout << endl;
 
         Form * rect = new Rect(x1, y1, x2, y2, x3, y3, x4, y4);
-        return rect;
+        CoordinatesSystem::GetInstance()->AddForm(rect);
     }
 
-    virtual bool isForm(string input) {
-        return input == "1";
+    virtual bool isForm(int input) {
+        return input == 1;
     }
 
     virtual operator string() const {
@@ -72,4 +72,4 @@ public:
 };
 
 
-#endif //CLIENTCPP_RECTANGLESERVICECOR_HPP
+#endif //CLIENTCPP_RECTANGLESERVICECREATIONCOR_HPP

@@ -1,0 +1,14 @@
+//
+// Created by iamze on 01/03/2023.
+//
+
+#ifndef CLIENTCPP_FORMSERVICEMODIFYDILATION_HPP
+#define CLIENTCPP_FORMSERVICEMODIFYDILATION_HPP
+
+
+class FormServiceModifyDilation {
+    // TODO
+};
+
+
+#endif //CLIENTCPP_FORMSERVICEMODIFYDILATION_HPP
