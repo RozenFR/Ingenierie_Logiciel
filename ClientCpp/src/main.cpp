@@ -151,6 +151,7 @@ int main() {
             } else break;
         }
 
+        delete socket;
         cout << "Client has been closed." << endl;
 
     } catch (Error err) {
