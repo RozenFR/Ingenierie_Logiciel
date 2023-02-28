@@ -24,6 +24,9 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
     private ArrayList<Circle> circles = new ArrayList<>();
     private ArrayList<Rect> rectangles = new ArrayList<>();
 
+    private static final int max = 255;
+    private static final int min = 0;
+
     public RenderForm() {
         setPreferredSize(new Dimension(800, 500));
         addKeyListener(new KeyAdapter() {
@@ -44,7 +47,9 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
     }
 
     private void drawCircle(Graphics g) {
-        g.setColor(Color.CYAN);
+        // Set Color of Circle
+        g.setColor(Color.ORANGE);
+
         for (Circle circle : circles) {
             g.fillOval(circle.getCenter().getX() - circle.getRadius(), circle.getCenter().getY() - circle.getRadius(),
                     2 * circle.getRadius(), 2 * circle.getRadius());
@@ -52,7 +57,9 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
     }
 
     private void drawRectangle(Graphics g) {
-        g.setColor(Color.RED);
+        // Set Color of Rectangle
+        g.setColor(Color.MAGENTA);
+
         for (Rect rect : rectangles) {
             g.drawLine(rect.getP1().getX(), rect.getP1().getY(),
                     rect.getP2().getX(), rect.getP2().getY());
@@ -63,6 +70,22 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
             g.drawLine(rect.getP4().getX(), rect.getP4().getY(),
                     rect.getP1().getX(), rect.getP1().getY());
         }
+    }
+
+    public ArrayList<Circle> getCircles() {
+        return circles;
+    }
+
+    public void setCircles(ArrayList<Circle> circles) {
+        this.circles = circles;
+    }
+
+    public ArrayList<Rect> getRectangles() {
+        return rectangles;
+    }
+
+    public void setRectangles(ArrayList<Rect> rectangles) {
+        this.rectangles = rectangles;
     }
 
     public void addCircle(Circle circle) {

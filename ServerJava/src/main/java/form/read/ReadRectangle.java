@@ -22,21 +22,25 @@ public class ReadRectangle extends ReadFormCoR {
 
         if (input.isEmpty()) throw new ReadFormException("");
 
+        boolean type = true;
+
         for(String str : inputParsed) {
-            Point point = new Point();
-            Pattern p = Pattern.compile("([\\+\\-]{0,1}[0-9]*[.]{0,1}[0-9]+)");
-            Matcher m = p.matcher(str);
-            ArrayList<String> mlist = new ArrayList<>();
-            while (m.find()) {
-                mlist.add(m.group());
-            }
-            point.setX(Integer.parseInt(mlist.get(0)));
-            point.setY(Integer.parseInt(mlist.get(1)));
-            try {
-                rec.addPoint(point);
-            } catch (FormException e) {
-                throw new RuntimeException(e);
-            }
+            if (!type) {
+                Point point = new Point();
+                Pattern p = Pattern.compile("([\\+\\-]{0,1}[0-9]*[.]{0,1}[0-9]+)");
+                Matcher m = p.matcher(str);
+                ArrayList<String> mlist = new ArrayList<>();
+                while (m.find()) {
+                    mlist.add(m.group());
+                }
+                point.setX(Integer.parseInt(mlist.get(0)));
+                point.setY(Integer.parseInt(mlist.get(1)));
+                try {
+                    rec.addPoint(point);
+                } catch (FormException e) {
+                    throw new RuntimeException(e);
+                }
+            } else type = false;
         }
 
         return rec;
@@ -48,7 +52,6 @@ public class ReadRectangle extends ReadFormCoR {
      */
     @Override
     public boolean isForm(String input) {
-        return input.matches("^([(]{1}([\\+\\-]{0,1}[0-9]*[.]{0,1}[0-9]*[,]{0,1}[\\s]{0,1})+[)]{1}[;]{1}){3}"
-                + "[(]{1}([\\+\\-]{0,1}[0-9]*[.]{0,1}[0-9]*[,]{0,1}[\\s]{0,1})+[)]{1}$");
+        return input.split(";")[0].toLowerCase().equals("rectangle");
     }
 }

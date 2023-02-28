@@ -52,14 +52,24 @@ public class FormInterlocutor extends Thread {
 
         try {
             while(!isInterrupted()) {
+                // Read from Client
                 input = this.inputFlux.readLine();
                 System.out.print("Client n°" + this.m_noConnexion + " has send : " );
                 System.out.println(input);
-                Form form = ReadForm.StringToForm(input);
-                form.accept(renderForm);
 
-                response = input;
+                renderForm.getCircles().clear();
+                renderForm.getRectangles().clear();
 
+                // Process Input
+                String inputProcess[] = input.split(":");
+                for (String i : inputProcess) {
+                    System.out.println(i);
+                    Form form = ReadForm.StringToForm(i);
+                    form.accept(renderForm);
+                }
+
+                // Return response to client
+                response = "Form drawn on server.\r\n\0";
                 this.outputFlux.println(response);
             }
         } catch (ReadFormException e) {

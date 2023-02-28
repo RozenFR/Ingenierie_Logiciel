@@ -26,6 +26,7 @@ public abstract class ReadFormCoR {
     }
 
     public Form Solve(String input) {
+
         if (isForm(input)) {
             try {
                 return SolveForm(input);
@@ -33,18 +34,9 @@ public abstract class ReadFormCoR {
                 throw new RuntimeException(e);
             }
         } else {
+            if (this.m_next == null) throw new NullPointerException("ReadFormCor : next is null.");
             return this.m_next.Solve(input);
         }
-    }
-
-    public int stringCounter(String input) {
-        Pattern p = Pattern.compile(";");
-        Matcher m = p.matcher(input);
-        int count = 0;
-        while (m.find()){
-            count +=1;
-        }
-        return count;
     }
 
     public abstract Form SolveForm(String input) throws ReadFormException, FormException;

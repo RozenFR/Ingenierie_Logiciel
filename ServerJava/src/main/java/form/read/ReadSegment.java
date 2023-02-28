@@ -64,7 +64,6 @@ public class ReadSegment extends ReadFormCoR {
     @Override
     public boolean isForm(String input) {
         // Verify initial condition
-        return input.matches("^([(]{1}([\\+\\-]{0,1}[0-9]*[.]{0,1}[0-9]*[,]{0,1}[\\s]{0,1})+[)]{1}[;]{1}){1}"
-                + "[(]{1}([\\+\\-]{0,1}[0-9]*[.]{0,1}[0-9]*[,]{0,1}[\\s]{0,1})+[)]{1}$");
+        return input.split(";")[0].toLowerCase().equals("segment");
     }
 }

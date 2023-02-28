@@ -25,17 +25,18 @@ public class ReadCircle extends ReadFormCoR {
 
         Point center = new Point();
         Pattern p = Pattern.compile("([\\+\\-]{0,1}[0-9]*[.]{0,1}[0-9]+)");
-        Matcher m = p.matcher(inputParsed[0]);
+        Matcher m = p.matcher(inputParsed[1]);
 
         ArrayList<String> mlist = new ArrayList<>();
         while (m.find()) {
             mlist.add(m.group());
         }
+
         center.setX(Integer.parseInt(mlist.get(0)));
         center.setY(Integer.parseInt(mlist.get(1)));
 
         circ.addPoint(center);
-        circ.setRadius(Integer.parseInt(inputParsed[1]));
+        circ.setRadius((int) Math.round(Double.parseDouble(inputParsed[2])));
 
         return circ;
     }
@@ -46,7 +47,6 @@ public class ReadCircle extends ReadFormCoR {
      */
     @Override
     public boolean isForm(String input) {
-        return input.matches("^([(]{1}([\\+\\-]{0,1}[0-9]*[.]{0,1}[0-9]*[,]{0,1}[\\s]{0,1})+[)]{1}){1}"
-                + "[;]([0-9]*[.]{0,1}[0-9])+$");
+        return input.split(";")[0].toLowerCase().equals("circle");
     }
 }

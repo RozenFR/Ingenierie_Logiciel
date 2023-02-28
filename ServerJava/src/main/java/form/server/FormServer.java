@@ -38,7 +38,6 @@ public class FormServer {
         group = new ThreadGroup("socketsClients");
         int noConnexion = 0;
 
-        RenderForm renderForm = new RenderForm();
         // new Circle(new Point(400, 250), 50).accept(renderForm);
 
         while(true) {
@@ -52,7 +51,7 @@ public class FormServer {
                 System.out.println("Connexion n°" + noConnexion + " : successful.");
                 // Creation d'un thread pour gerer les transactions avec le nouveau client
                 // => Thread en parallele pour gerer les differents clients
-                newInterlocutor = new FormInterlocutor(newSock, group, noConnexion, renderForm);
+                newInterlocutor = new FormInterlocutor(newSock, group, noConnexion, new RenderForm());
                 newInterlocutor.start();
             } catch (IOException e) {
                 System.err.println("Connexion n°" + noConnexion + " : failed.");
