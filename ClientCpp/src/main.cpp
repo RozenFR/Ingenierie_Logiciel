@@ -2,8 +2,9 @@
 #include "server/Socket.hpp"
 #include "server/_WSA.hpp"
 #include "form/service/create/FormServiceCreation.hpp"
-#include "CoordinatesSystem.hpp"
+#include "CoordinatesSystemScreen.hpp"
 #include "form/visitor/CoordinatesConverter.hpp"
+#include "CoordinatesSystemWorld.hpp"
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -25,16 +26,20 @@ int main() {
         char adrServ[L];
         short portServ;
 
+        // Settings of Sockets
         cout << "Enter Ip Server Adress : " << endl;
         cin >> adrServ;
         cout << "Enter Server Port : " << endl;
         cin >> portServ;
 
+        // Initialize Socket
         Socket * socket = new Socket(adrServ, portServ);
 
+        // Settings of Screen
         double px1, px2, py1, py2;
 
-        cout << "============== Define working area ==============" << endl;
+        // User Input of Screen Settings
+        cout << "============== Define working area (Screen) ==============" << endl;
         cout << "px1 :  " << endl;
         cin >> px1;
         cout << "py1 :  " << endl;
@@ -45,10 +50,12 @@ int main() {
         cin >> py2;
         cout << endl;
 
-
+        // Initialize CoordinatesSystem
         CoordinatesConverter * cc = new CoordinatesConverter(px1, py1, px2, py2);
-        CoordinatesSystem * cs = CoordinatesSystem::GetInstance(cc);
+        CoordinatesSystemScreen * css = CoordinatesSystemScreen::GetInstance(cc);
+        CoordinatesSystemWorld * csw = CoordinatesSystemWorld::GetInstance();
 
+        // Loop Menu
         while (true) {
             cout << "============== MENU ==============" << endl;
             cout << "Welcome User, please select one of the option : " << endl;
@@ -63,6 +70,7 @@ int main() {
 
             if (inputMenu != 0) {
                 if (inputMenu == 1) { // 1 - Create Form
+                    // Loop Create Form
                     while (true) {
                         cout << "============== Create Form ==============" << endl;
                         cout << "Please pick one form of your choice : " << endl;
@@ -81,7 +89,7 @@ int main() {
                         } else break;
 
                         // initialize request
-                        string sform = (string) *cs;
+                        string sform = (string) *css;
                         int size = sform.length();
                         char c[size + 1];
                         strcpy(c, sform.c_str());
@@ -90,10 +98,9 @@ int main() {
                         socket->Send(c);
                     }
                 } else if (inputMenu == 2) { // 2 - Remove Form
-
                     cout << "============== List of Removable Form ==============" << endl;
                     int count = 0;
-                    for (Form * form : cs->getForms()) {
+                    for (Form * form : css->getForms()) {
                         cout << count << " - " << *form << endl;
                         count++;
                     }
@@ -104,10 +111,11 @@ int main() {
                     cin >> index;
 
                     if (index < count && index >= 0) {
-                        cs->RemoveForm(index);
+                        csw->RemoveForm(index);
+                        css->RemoveForm(index);
 
                         // initialize request
-                        string sform = (string) *cs;
+                        string sform = (string) *css;
                         int size = sform.length();
                         char c[size + 1];
                         strcpy(c, sform.c_str());
@@ -131,7 +139,7 @@ int main() {
                         if (inputModifyForm != 0) {
                             cout << "============== List of Modifiable Form ==============" << endl;
                             int count = 0;
-                            for (Form * form : cs->getForms()) {
+                            for (Form * form : css->getForms()) {
                                 cout << count << " - " << *form << endl;
                                 count++;
                             }
