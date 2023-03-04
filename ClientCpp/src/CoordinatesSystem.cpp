@@ -1,7 +1,5 @@
 //
-// Created by iamze on 28/02/2023.
+// Created by iamze on 04/03/2023.
 //
 
 #include "CoordinatesSystem.hpp"
-
-CoordinatesSystem * CoordinatesSystem::m_cs = NULL;

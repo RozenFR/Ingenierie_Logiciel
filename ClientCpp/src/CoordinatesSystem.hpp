@@ -1,9 +1,10 @@
 //
-// Created by iamze on 28/02/2023.
+// Created by iamze on 04/03/2023.
 //
 
 #ifndef CLIENTCPP_COORDINATESSYSTEM_HPP
 #define CLIENTCPP_COORDINATESSYSTEM_HPP
+
 
 #pragma once
 #include <iostream>
@@ -13,45 +14,20 @@
 #include <string>
 #include <vector>
 #include "form/Form.hpp"
-#include "form/visitor/CoordinatesConverter.hpp"
 
 using namespace std;
 
+/**
+ * Parent class that manage every kind of coordinates system\n
+ * In occurence :\n
+ * - World -> Singleton\n
+ * - Screen -> Singleton\n
+ * If we want to generalize more, we can create a children wich is not a singleton
+ * but in our case, it is useless so we just create these 2 Singleton
+ */
 class CoordinatesSystem {
 protected:
-    static CoordinatesSystem * m_cs;
-    CoordinatesConverter * m_cc;
-
-    double m_ix = 1;
-    double m_iy = 0;
-    double m_jx = 0;
-    double m_jy = 1;
-
     vector<Form *> v_form;
-
-    CoordinatesSystem() {
-
-    }
-
-    CoordinatesSystem(CoordinatesConverter * cc) {
-        m_cc = cc;
-    }
-
-public:
-
-    static CoordinatesSystem * GetInstance() {
-        if (m_cs == nullptr) {
-            m_cs = new CoordinatesSystem();
-        }
-        return m_cs;
-    }
-
-    static CoordinatesSystem * GetInstance(CoordinatesConverter * cc) {
-        if (m_cs == nullptr) {
-            m_cs = new CoordinatesSystem(cc);
-        }
-        return m_cs;
-    }
 
     ~CoordinatesSystem() {
         for (int i = 0; i < v_form.size(); i++) {
@@ -59,106 +35,28 @@ public:
         }
     }
 
+public:
     /**
-     *
-     * @param x
+     *  Virtual function to add a form
+     * @param form Pointer of form to add
      */
-    void setix(const double x) {
-        m_ix = x;
-    }
+    virtual void AddForm(Form * form) = 0;
 
     /**
-     *
-     * @param y
+     * Virtual function to remove a form with index
+     * @param i index of form
      */
-    void setiy(const double y) {
-        m_iy = y;
-    }
+    virtual void RemoveForm(int i) = 0;
 
     /**
-     *
-     * @param x
+     * Convert a CoordinatesSystem into a string
+     * @return a string of CoordinatesSystem
      */
-    void setjx(const double x) {
-        m_jx = x;
-    }
-
-    /**
-     *
-     * @param y
-     */
-    void setjy(const double y) {
-        m_jy = y;
-    }
-
-    /**
-     *
-     * @return
-     */
-    double getix() {
-        return m_ix;
-    }
-
-    /**
-     *
-     * @return
-     */
-    double getiy() {
-        return m_iy;
-    }
-
-    /**
-     *
-     * @return
-     */
-    double getjx() {
-        return m_jx;
-    }
-
-    /**
-     *
-     * @return
-     */
-    double getjy() {
-        return m_jy;
-    }
+    virtual operator string() const = 0;
 
     vector<Form *> getForms() {
         return v_form;
     }
-
-    /**
-     *
-     * @param form
-     */
-    void AddForm(Form * form) {
-        if (form == nullptr) cerr << "Fail to add form" << endl;
-        else {
-            form->accept(m_cc);
-            v_form.push_back(form);
-        }
-    }
-
-    /**
-     *
-     * @param form
-     */
-    void RemoveForm(int i) {
-        if (i < 0 || i > v_form.size()) cerr << "Fail to remove form : index Out of Range" << endl;
-        else {
-            v_form.erase(v_form.begin() + i);
-        }
-    }
-
-    virtual operator string() const {
-        ostringstream oss;
-        for (int i = 0; i < v_form.size(); i++) {
-            oss << *(v_form[i]);
-            if (i != v_form.size() - 1) oss << ":";
-        }
-        return oss.str();
-    }
-
 };
 
 inline ostream& operator<<(ostream &os, const CoordinatesSystem &cs) {
