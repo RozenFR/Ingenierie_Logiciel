@@ -9,8 +9,6 @@
 
 using namespace std;
 
-class Form;
-
 class FormServiceCreationCOR {
 protected:
     FormServiceCreationCOR * m_next;
@@ -21,7 +19,7 @@ public:
         return m_next;
     }
 
-    FormServiceCreationCOR *getNext() const {
+    FormServiceCreationCOR * getNext() const {
         return m_next;
     }
 
@@ -30,11 +28,10 @@ public:
     }
 
     void solve(int input) {
-        if (m_next == NULL) throw FormServiceException("Not in range of selection.");
-
         if (isForm(input)) {
             solveForm();
         } else {
+            if (m_next == NULL) throw FormServiceException("Not in range of selection.");
             m_next->solve(input);
         }
     }
