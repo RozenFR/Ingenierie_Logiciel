@@ -5,6 +5,7 @@
 #include "CoordinatesSystemScreen.hpp"
 #include "form/visitor/CoordinatesConverter.hpp"
 #include "CoordinatesSystemWorld.hpp"
+#include "form/service/modify/FormServiceModify.hpp"
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -20,7 +21,6 @@ int main() {
      * */
 
     _WSA * wsa = _WSA::GetInstance();
-    FormServiceCreation * formService = new FormServiceCreation();
 
     try {
         char adrServ[L];
@@ -54,6 +54,10 @@ int main() {
         CoordinatesConverter * cc = new CoordinatesConverter(px1, py1, px2, py2);
         CoordinatesSystemScreen * css = CoordinatesSystemScreen::GetInstance(cc);
         CoordinatesSystemWorld * csw = CoordinatesSystemWorld::GetInstance();
+
+
+        FormServiceCreation * formService = new FormServiceCreation();
+        FormServiceModify * formServiceModify = new FormServiceModify();
 
         // Loop Menu
         while (true) {
@@ -100,7 +104,7 @@ int main() {
                 } else if (inputMenu == 2) { // 2 - Remove Form
                     cout << "============== List of Removable Form ==============" << endl;
                     int count = 0;
-                    for (Form * form : css->getForms()) {
+                    for (Form * form : csw->getForms()) {
                         cout << count << " - " << *form << endl;
                         count++;
                     }
@@ -111,8 +115,8 @@ int main() {
                     cin >> index;
 
                     if (index < count && index >= 0) {
-                        csw->RemoveForm(index);
-                        css->RemoveForm(index);
+                        csw->RemoveForm(index); // Remove From World
+                        css->RemoveForm(index); // Remove From Screen
 
                         // initialize request
                         string sform = (string) *css;
@@ -120,11 +124,12 @@ int main() {
                         char c[size + 1];
                         strcpy(c, sform.c_str());
 
-                        // Send Creation Request
+                        // Send Remove Request to Screen
                         socket->Send(c);
                     } else cerr << "INDEX IS OUT OF RANGE" << endl;
 
                 } else if (inputMenu == 3) { // 3 - Modify Form
+                    // Loop Modify Form
                     while (true) {
                         cout << "============== Modify Form ==============" << endl;
                         cout << "Please pick one form of your choice : " << endl;
@@ -139,18 +144,28 @@ int main() {
                         if (inputModifyForm != 0) {
                             cout << "============== List of Modifiable Form ==============" << endl;
                             int count = 0;
-                            for (Form * form : css->getForms()) {
+                            for (Form * form : csw->getForms()) {
                                 cout << count << " - " << *form << endl;
                                 count++;
                             }
 
                             // Choice of User
                             int index;
-                            cout << "Choice of your Form :  ";
+                            cout << "Choice of your Form :";
                             cin >> index;
 
                             if (index < count && index >= 0) {
-                                // TODO
+                                formServiceModify->updateForm(inputModifyForm, index);
+
+                                // initialize request
+                                string sform = (string) *css;
+                                cout << sform << endl;
+                                int size = sform.length();
+                                char c[size + 1];
+                                strcpy(c, sform.c_str());
+
+                                // Send Remove Request to Screen
+                                socket->Send(c);
                             } else cerr << "INDEX IS OUT OF RANGE" << endl;
 
                         } else break;
