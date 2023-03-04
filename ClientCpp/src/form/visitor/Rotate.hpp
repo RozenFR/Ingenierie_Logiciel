@@ -44,24 +44,27 @@ public:
      * @param circle target circle
      */
     virtual void visite(Circle * circle) {
-        // We use complex to determine the new vector that will place the new point
-        // z = x + iy
-        complex<double> circomp(circle->getX(), circle->getY());
+        cout << "Before : " << *circle << endl;
+        // We calculate the distance between point of rotation and the center
+        double distance = sqrt(pow(circle->getX() - m_x, 2) + pow(circle->getY() - m_y, 2));
 
-        // Now we try to calculate A, the norm of the complex vector
-        double a = norm(circomp);
+        // We change Coordinate System and use polar coordinates
+        // So now x = R * cos(theta)
+        // and y = R * sin(theta)
+        // Our new center with polar coordinates
+        double nc[2]; nc[0] = circle->getX() - m_x; nc[1] = circle->getY() - m_y;
 
-        // z = Aexp(i*theta)
-        // our theta is the one defined by the user storaged in this subclass
-        complex<double> res = a * exp(m_rad);
+        // We calculate lambda wich is the angle between the x axis and OA
+        double lambda = acos(nc[0]/distance);
 
-        // With our result, we just have to decompose our complex into a vector
-        // Like that we have our vector of translation from the point of rotation
-        double v[2]; v[0] = real(res); v[1] = imag(res);
+        // We calculate the new center with the polar coordinate
+        double rc[2]; rc[0] = distance * cos(lambda + m_rad); rc[1] = distance * sin(lambda + m_rad);
 
-        // We set our new center point on the circle with the point of rotation and add the vector of translation
-        circle->setX(m_x + v[0]);
-        circle->setY(m_y + v[1]);
+        // Now we need to convert polar coordinate to carthesian coordinate
+        circle->setX(round(rc[0] + m_x));
+        circle->setY(round(rc[1] + m_y));
+
+        cout << "After : " << *circle << endl;
     }
 
     /**
@@ -69,38 +72,38 @@ public:
      * @param rect target Rectangle
      */
     virtual void visite(Rect * rect) {
-        // We use complex to determine the new vector that will place the new point
-        // z = x + iy
-        complex<double> rc1(rect->getX1(), rect->getY1());
-        complex<double> rc2(rect->getX2(), rect->getY2());
-        complex<double> rc3(rect->getX3(), rect->getY3());
-        complex<double> rc4(rect->getX4(), rect->getY4());
+        // We calculate the distance between point of rotation and the center
+        double d1 = sqrt(pow(rect->getX1() - m_x, 2) + pow(rect->getY1() - m_y, 2));
+        double d2 = sqrt(pow(rect->getX2() - m_x, 2) + pow(rect->getY2() - m_y, 2));
+        double d3 = sqrt(pow(rect->getX3() - m_x, 2) + pow(rect->getY3() - m_y, 2));
+        double d4 = sqrt(pow(rect->getX4() - m_x, 2) + pow(rect->getY4() - m_y, 2));
 
-        // Now we try to calculate A, the norm of the complex vector
-        double a1 = norm(rc1);
-        double a2 = norm(rc2);
-        double a3 = norm(rc3);
-        double a4 = norm(rc4);
+        // We change Coordinate System and use polar coordinates
+        // So now x = R * cos(theta)
+        // and y = R * sin(theta)
+        // Our new center with polar coordinates
+        double nc1[2]; nc1[0] = rect->getX1() - m_x; nc1[1] = rect->getY1() - m_y;
+        double nc2[2]; nc2[0] = rect->getX2() - m_x; nc1[1] = rect->getY2() - m_y;
+        double nc3[2]; nc3[0] = rect->getX3() - m_x; nc1[1] = rect->getY3() - m_y;
+        double nc4[2]; nc4[0] = rect->getX4() - m_x; nc1[1] = rect->getY4() - m_y;
 
-        // z = Aexp(i*theta)
-        // our theta is the one defined by the user storaged in this subclass
-        complex<double> res1 = a1 * exp(m_rad);
-        complex<double> res2 = a2 * exp(m_rad);
-        complex<double> res3 = a3 * exp(m_rad);
-        complex<double> res4 = a4 * exp(m_rad);
+        // We calculate lambda wich is the angle between the x axis and OA
+        double lambda1 = acos(nc1[0]/d1);
+        double lambda2 = acos(nc2[0]/d2);
+        double lambda3 = acos(nc3[0]/d3);
+        double lambda4 = acos(nc4[0]/d4);
 
-        // With our result, we just have to decompose our complex into a vectors
-        // Like that we have our vector of translation from the point of rotation
-        double v1[2]; v1[0] = real(res1); v1[1] = imag(res1);
-        double v2[2]; v2[0] = real(res2); v2[1] = imag(res2);
-        double v3[2]; v3[0] = real(res3); v3[1] = imag(res3);
-        double v4[2]; v4[0] = real(res4); v4[1] = imag(res4);
+        // We calculate the new center with the polar coordinate
+        double rc1[2]; rc1[0] = d1 * cos(lambda1 + m_rad); rc1[1] = d1 * sin(lambda1 + m_rad);
+        double rc2[2]; rc2[0] = d2 * cos(lambda2 + m_rad); rc2[1] = d2 * sin(lambda2 + m_rad);
+        double rc3[2]; rc3[0] = d3 * cos(lambda3 + m_rad); rc3[1] = d3 * sin(lambda3 + m_rad);
+        double rc4[2]; rc4[0] = d4 * cos(lambda4 + m_rad); rc4[1] = d4 * sin(lambda4 + m_rad);
 
-        // We set our new center point on the circle with the point of rotation and add the vector of translation
-        rect->setX1(m_x + v1[0]); rect->setY1(m_y + v1[1]);
-        rect->setX2(m_x + v2[0]); rect->setY2(m_y + v2[1]);
-        rect->setX3(m_x + v3[0]); rect->setY3(m_y + v3[1]);
-        rect->setX4(m_x + v4[0]); rect->setY4(m_y + v4[1]);
+        // Now we need to convert polar coordinate to carthesian coordinate
+        rect->setX1(rc1[0] + m_x); rect->setY1(rc1[1] + m_y);
+        rect->setX2(rc2[0] + m_x); rect->setY2(rc2[1] + m_y);
+        rect->setX3(rc3[0] + m_x); rect->setY3(rc3[1] + m_y);
+        rect->setX4(rc4[0] + m_x); rect->setY4(rc4[1] + m_y);
     }
 };
 
