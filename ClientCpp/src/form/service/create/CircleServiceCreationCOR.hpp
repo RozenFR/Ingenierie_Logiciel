@@ -9,7 +9,8 @@
 #include "FormServiceCreationCOR.hpp"
 #include "../FormServiceException.hpp"
 #include "../../Circle.hpp"
-#include "../../../CoordinatesSystem.hpp"
+#include "../../../CoordinatesSystemScreen.hpp"
+#include "../../../CoordinatesSystemWorld.hpp"
 
 class CircleServiceCreationCOR : public FormServiceCreationCOR {
 
@@ -26,6 +27,8 @@ public:
         double x, y;
         double radius;
 
+        // User Service Input for Circle
+        // Set Center
         cout << "x1 = " << endl;
         cin >> x;
         cout << endl;
@@ -33,13 +36,17 @@ public:
         cin >> y;
         cout << endl;
 
+        // Set Radius
         cout << "radius = " << endl;
         cin >> radius;
 
+        // Create 2 forms to add on each CoordinatesSystem
+        Form * circleWorld = new Circle(x, y, radius);
+        Form * circleScreen = new Circle(x, y, radius);
 
-        Form * circle = new Circle(x, y, radius);
-        // cout << *circle << endl;
-        CoordinatesSystem::GetInstance()->AddForm(circle);
+        // Add to Singleton World and Screen
+        CoordinatesSystemWorld::GetInstance()->AddForm(circleWorld);
+        CoordinatesSystemScreen::GetInstance()->AddForm(circleScreen); // Will do conversion in Singleton
     }
 
     virtual bool isForm(int input) {

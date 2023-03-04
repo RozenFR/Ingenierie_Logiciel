@@ -17,7 +17,7 @@ protected:
 
     void processInput(int input) {
         FormServiceCreationCOR * fs;
-        fs = new class RectangleServiceCOR(new CircleServiceCreationCOR());
+        fs = new RectangleServiceCreationCOR(new CircleServiceCreationCOR());
         fs->solve(input);
     }
 

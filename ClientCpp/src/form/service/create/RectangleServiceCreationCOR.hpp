@@ -28,6 +28,8 @@ public:
         double x3, y3;
         double x4, y4;
 
+        // User Service Input for Rectangle
+        // Set P1
         cout << "x1 = " << endl;
         cin >> x1;
         cout << endl;
@@ -35,6 +37,7 @@ public:
         cin >> y1;
         cout << endl;
 
+        // Set P2
         cout << "x2 = " << endl;
         cin >> x2;
         cout << endl;
@@ -42,6 +45,7 @@ public:
         cin >> y2;
         cout << endl;
 
+        // Set P3
         cout << "x3 = " << endl;
         cin >> x3;
         cout << endl;
@@ -49,6 +53,7 @@ public:
         cin >> y3;
         cout << endl;
 
+        // Set P4
         cout << "x4 = " << endl;
         cin >> x4;
         cout << endl;
@@ -56,8 +61,13 @@ public:
         cin >> y4;
         cout << endl;
 
-        Form * rect = new Rect(x1, y1, x2, y2, x3, y3, x4, y4);
-        CoordinatesSystem::GetInstance()->AddForm(rect);
+        // Create 2 forms to add on each CoordinatesSystem
+        Form * rectWorld = new Rect(x1, y1, x2, y2, x3, y3, x4, y4);
+        Form * rectScreen = new Rect(x1, y1, x2, y2, x3, y3, x4, y4);
+
+        // Add to Singleton World and Screen
+        CoordinatesSystemWorld::GetInstance()->AddForm(rectWorld);
+        CoordinatesSystemScreen::GetInstance()->AddForm(rectScreen); // Will do conversion in Singleton
     }
 
     virtual bool isForm(int input) {
