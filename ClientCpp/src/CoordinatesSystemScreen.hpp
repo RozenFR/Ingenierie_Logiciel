@@ -12,7 +12,7 @@
 class CoordinatesSystemScreen : public CoordinatesSystem {
 protected:
     static CoordinatesSystemScreen * m_css;
-    CoordinatesConverter * m_cc = nullptr;
+    CoordinatesConverter * m_cc;
 
     CoordinatesSystemScreen() {
 
@@ -57,10 +57,8 @@ public:
      * @param form
      */
     virtual void RemoveForm(int i) {
-        if (i < 0 || i > v_form.size()) cerr << "Fail to remove form : index Out of Range" << endl;
-        else {
-            v_form.erase(v_form.begin() + i);
-        }
+        if (i < 0 || i > v_form.size()) cerr << "CoordinatesSystemScreen : remove index Out of Range" << endl;
+        else v_form.erase(v_form.begin() + i);
     }
 
     virtual operator string() const {

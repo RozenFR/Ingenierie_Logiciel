@@ -35,9 +35,7 @@ public:
      */
     virtual void AddForm(Form * form) {
         if (form == nullptr) cerr << "Fail to add form" << endl;
-        else {
-            v_form.push_back(form);
-        }
+        else v_form.push_back(form);
     }
 
     /**
@@ -45,10 +43,8 @@ public:
      * @param form
      */
     virtual void RemoveForm(int i) {
-        if (i < 0 || i > v_form.size()) cerr << "Fail to remove form : index Out of Range" << endl;
-        else {
-            v_form.erase(v_form.begin() + i);
-        }
+        if (i < 0 || i > v_form.size()) cerr << "CoordinatesSystemWorld : remove index Out of Range" << endl;
+        else v_form.erase(v_form.begin() + i);
     }
 
     virtual operator string() const {
