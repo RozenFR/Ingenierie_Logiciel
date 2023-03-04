@@ -119,6 +119,10 @@ public:
         return normev1 * normev2;
     }
 
+    Form * copy() const {
+        return new Rect(m_x1, m_y1, m_x2, m_y2, m_x3, m_y3, m_x4, m_y4);
+    }
+
     virtual void accept(VisitorForm * vf);
 };
 

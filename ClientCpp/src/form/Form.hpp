@@ -19,6 +19,7 @@ class Form {
 public:
     virtual operator string() const = 0;
     virtual double aire() const = 0;
+    virtual Form * copy() const = 0;
     virtual void accept(VisitorForm * vf) = 0;
 };
 

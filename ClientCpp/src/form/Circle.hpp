@@ -60,6 +60,10 @@ public:
         return PI * m_radius * m_radius;
     }
 
+    Form * copy() const {
+        return new Circle(m_xCenter, m_yCenter, m_radius);
+    }
+
     virtual void accept(VisitorForm * vf);
 };
 
