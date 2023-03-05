@@ -105,6 +105,7 @@ public:
         WSACleanup();
 
         cout << "Stopping Server." << endl;
+    }
 
 
     /**
