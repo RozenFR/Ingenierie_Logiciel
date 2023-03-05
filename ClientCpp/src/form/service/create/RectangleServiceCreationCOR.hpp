@@ -11,17 +11,29 @@
 #include "../../Rect.hpp"
 #include "CircleServiceCreationCOR.hpp"
 
+/**
+ * Class managing creation of rectangle
+ */
 class RectangleServiceCreationCOR : public FormServiceCreationCOR {
 public:
-
+    /**
+     * Constructor of RectangleServiceCreationCOR
+     */
     RectangleServiceCreationCOR() {
 
     }
 
+    /**
+     * Constructor of RectangleServiceCreationCOR, set next in construction
+     * @param fs
+     */
     RectangleServiceCreationCOR(FormServiceCreationCOR * fs) {
         setNext(fs);
     }
 
+    /**
+     * User Creation of Rectangle
+     */
     virtual void solveForm() const {
         double x1, y1;
         double x2, y2;
@@ -70,10 +82,19 @@ public:
         CoordinatesSystemScreen::GetInstance()->AddForm(rectScreen); // Will do conversion in Singleton
     }
 
+    /**
+     * Method that verify choice is rectangle
+     * @param input user choice
+     * @return if choice is correct
+     */
     virtual bool isForm(int input) {
         return input == 1;
     }
 
+    /**
+     * Overload string operator
+     * @return string
+     */
     virtual operator string() const {
         ostringstream oss;
         oss << "RectangleServiceCOR";

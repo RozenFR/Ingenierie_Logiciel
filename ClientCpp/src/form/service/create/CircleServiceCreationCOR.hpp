@@ -9,20 +9,32 @@
 #include "FormServiceCreationCOR.hpp"
 #include "../FormServiceException.hpp"
 #include "../../Circle.hpp"
-#include "../../../CoordinatesSystemScreen.hpp"
-#include "../../../CoordinatesSystemWorld.hpp"
+#include "../../../coordinates/CoordinatesSystemScreen.hpp"
+#include "../../../coordinates/CoordinatesSystemWorld.hpp"
 
+/**
+ * Class managing creation of circle
+ */
 class CircleServiceCreationCOR : public FormServiceCreationCOR {
-
 public:
+    /**
+     * Constructor of CircleServiceCreationCOR
+     */
     CircleServiceCreationCOR() {
 
     }
 
+    /**
+     * Constructor of CircleServiceCreationCOR, set next in construction
+     * @param fs next node
+     */
     CircleServiceCreationCOR(FormServiceCreationCOR * fs) {
         setNext(fs);
     }
 
+    /**
+     * User Creation of Circle
+     */
     virtual void solveForm() const {
         double x, y;
         double radius;
@@ -49,10 +61,19 @@ public:
         CoordinatesSystemScreen::GetInstance()->AddForm(circleScreen); // Will do conversion in Singleton
     }
 
+    /**
+     * Method that verify choice is circle
+     * @param input user choice
+     * @return if choice is correct
+     */
     virtual bool isForm(int input) {
         return input == 2;
     }
 
+    /**
+     * Overload string operator
+     * @return string
+     */
     virtual operator string() const {
         ostringstream oss;
         oss << "CircleServiceCOR";

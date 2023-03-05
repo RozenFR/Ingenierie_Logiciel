@@ -14,11 +14,20 @@
 
 using namespace std;
 
+/**
+ * Class Managing every WSAData\n
+ * This class is a Singleton initialize before Socket
+ */
 class _WSA {
 protected:
+    // Static var representing singleton
     static _WSA * s_wsa;
+    // WSAData
     WSAData * m_wsadata;
 
+    /**
+     * Constructor of _WSA
+     */
     _WSA() {
         SetWSA();
     }
@@ -37,12 +46,23 @@ protected:
 
 public:
 
+    /**
+     * Delete copy constructor because it's a Singleton
+     * @param wsa
+     */
     _WSA(_WSA &wsa) = delete;
 
+    /**
+     * Clean WSAData when _WSA is destroyed
+     */
     ~_WSA() {
         WSACleanup();
     }
 
+    /**
+     * Main Method to get _WSA Instance
+     * @return Singleton Class
+     */
     static _WSA * GetInstance() {
         if (s_wsa == nullptr) {
             s_wsa = new _WSA();

@@ -21,6 +21,8 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
     private boolean running = false;
     private int delay = 10;
 
+    JFrame frame;
+
     private ArrayList<Circle> circles = new ArrayList<>();
     private ArrayList<Rect> rectangles = new ArrayList<>();
 
@@ -28,7 +30,7 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
     private static final int min = 0;
 
     public RenderForm() {
-        setPreferredSize(new Dimension(800, 500));
+        setPreferredSize(new Dimension(1920, 1080));
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -38,12 +40,16 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
             }
         });
 
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this);
         frame.pack();
         frame.setVisible(true);
         this.start();
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 
     private void drawCircle(Graphics g) {

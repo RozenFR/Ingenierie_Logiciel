@@ -8,22 +8,39 @@
 #pragma once
 #include "VisitorForm.hpp"
 
+/**
+ * Class that manage Dilation of a form
+ */
 class Dilation : public VisitorForm {
 protected:
-    double m_x;
-    double m_y;
-    double m_coef;
+    double m_x; // x of dilation
+    double m_y; // y of dilation
+    double m_coef; // coefficient of dilation
 public:
+    /**
+     * Constructor of Dilation
+     * @param x x of dilation
+     * @param y y of dilation
+     * @param coef coefficient of dilation
+     */
     Dilation(double x, double y, double coef) {
         m_x = x;
         m_y = y;
         m_coef = coef;
     }
 
+    /**
+     * @NotImplemented
+     * @param croix
+     */
     virtual void visite(Cross * croix) {
 
     }
 
+    /**
+     * Method that dilate a circle from point of dilation with a coefficient of dilation
+     * @param circle target circle
+     */
     virtual void visite(Circle * circle) {
         double * v1 = new double[2];
         double rx;
@@ -47,6 +64,10 @@ public:
 
     }
 
+    /**
+     * Method that dilate a rectangle from point of dilation with a coefficient of dilation
+     * @param rect target rectangle
+     */
     virtual void visite(Rect * rect){
         double *v1 = new double[2], *v2 = new double[2], *v3 = new double[2], *v4 = new double[2];
 

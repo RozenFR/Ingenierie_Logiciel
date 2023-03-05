@@ -14,6 +14,9 @@
 
 using namespace std;
 
+/**
+ * Class Managing general error
+ */
 class Error : public exception {
 private:
     string m_message;

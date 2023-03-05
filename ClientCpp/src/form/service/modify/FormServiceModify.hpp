@@ -16,6 +16,11 @@ using namespace std;
 
 class FormServiceModify {
 public:
+    /**
+     * Method that update a form
+     * @param choice user choice
+     * @param index index of form to modify
+     */
     void updateForm(int choice, int index) {
         FormServiceModifyCOR *f1 = new FormServiceModifyDilation();
         f1->setNext(new FormServiceModifyRotate());

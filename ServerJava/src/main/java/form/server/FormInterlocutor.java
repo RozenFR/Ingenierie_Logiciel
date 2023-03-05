@@ -5,6 +5,7 @@ import form.model.Form;
 import form.read.ReadForm;
 import form.read.ReadFormException;
 
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
 
@@ -54,6 +55,9 @@ public class FormInterlocutor extends Thread {
             while(!isInterrupted()) {
                 // Read from Client
                 input = this.inputFlux.readLine();
+
+                if (input.equals("null")) break;
+
                 System.out.print("Client n°" + this.m_noConnexion + " has send : " );
                 System.out.println(input);
 
@@ -72,6 +76,8 @@ public class FormInterlocutor extends Thread {
                 response = "Form drawn on server.\r\n\0";
                 this.outputFlux.println(response);
             }
+
+            renderForm.getFrame().dispatchEvent(new WindowEvent(renderForm.getFrame(), WindowEvent.WINDOW_CLOSING));
         } catch (ReadFormException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {

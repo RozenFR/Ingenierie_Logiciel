@@ -13,7 +13,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include "form/Form.hpp"
+#include "../form/Form.hpp"
 
 using namespace std;
 
@@ -27,8 +27,12 @@ using namespace std;
  */
 class CoordinatesSystem {
 protected:
+    // Vector of Form
     vector<Form *> v_form;
 
+    /**
+     * Delete every form when CoordinatesSystem is detroyed
+     */
     ~CoordinatesSystem() {
         for (int i = 0; i < v_form.size(); i++) {
             delete v_form[i];
@@ -54,11 +58,21 @@ public:
      */
     virtual operator string() const = 0;
 
+    /**
+     * Method to get form's vector
+     * @return vector of form
+     */
     vector<Form *> getForms() {
         return v_form;
     }
 };
 
+/**
+ * Overload of <<
+ * @param os main input
+ * @param cs CoordinatesSystem target
+ * @return ostream
+ */
 inline ostream& operator<<(ostream &os, const CoordinatesSystem &cs) {
     return os << (string) cs;
 }

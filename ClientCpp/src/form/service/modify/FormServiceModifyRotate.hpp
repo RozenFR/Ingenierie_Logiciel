@@ -8,11 +8,17 @@
 #pragma once
 #include "FormServiceModifyCOR.hpp"
 #include "../../visitor/Rotate.hpp"
-#include "../../../CoordinatesSystemWorld.hpp"
-#include "../../../CoordinatesSystemScreen.hpp"
+#include "../../../coordinates/CoordinatesSystemWorld.hpp"
+#include "../../../coordinates/CoordinatesSystemScreen.hpp"
 
+/**
+ * Class managing Rotate
+ */
 class FormServiceModifyRotate : public FormServiceModifyCOR {
 public:
+    /**
+     * User rotation of form
+     */
     virtual void solveFunction(int index) const {
         double x, y;
         double rad;
@@ -43,10 +49,20 @@ public:
         CoordinatesSystemWorld::GetInstance()->AddForm(form1);
         CoordinatesSystemScreen::GetInstance()->AddForm(form2);
     }
+
+    /**
+     * Method that verify choice is rotate
+     * @param input user choice
+     * @return if choice is correct
+     */
     virtual bool isFunction(int input) {
         return input == 2;
     }
 
+    /**
+    * Overload string operator
+    * @return string
+    */
     virtual operator string() const {
         ostringstream oss;
         oss << "[FormServiceModifyRotate]";

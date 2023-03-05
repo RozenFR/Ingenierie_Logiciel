@@ -14,7 +14,10 @@ using namespace std;
 
 class FormServiceCreation {
 protected:
-
+    /**
+     * method that process user input to activate CreationService
+     * @param input user choice
+     */
     void processInput(int input) {
         FormServiceCreationCOR * fs;
         fs = new RectangleServiceCreationCOR(new CircleServiceCreationCOR());
@@ -22,10 +25,17 @@ protected:
     }
 
 public:
+    /**
+     * Constructor of FormServiceCreation
+     */
     FormServiceCreation() {
 
     }
 
+    /**
+     * Method that manage user choice
+     * @param input user choice
+     */
     void getForm(int input) {
         processInput(input);
     }

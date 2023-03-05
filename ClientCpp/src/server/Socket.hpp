@@ -45,11 +45,15 @@ public:
 
         cout << "Socket creation ..." << endl;
         sock = socket(fAdr, tSock, prot);
+
+        // Failure Case is socket can't initialize
         if (sock == INVALID_SOCKET) {
             ostringstream oss;
             oss << "Fail to create socket : " << WSAGetLastError() << endl;
             throw Error(oss.str().c_str());
         }
+
+        // Assign socket to class attribute
         m_socket = sock;
         cout << "Socket has been created" << endl;
     }
@@ -101,7 +105,7 @@ public:
         WSACleanup();
 
         cout << "Stopping Server." << endl;
-    }
+
 
     /**
     * Sending to Client

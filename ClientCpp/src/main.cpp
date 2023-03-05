@@ -2,9 +2,9 @@
 #include "server/Socket.hpp"
 #include "server/_WSA.hpp"
 #include "form/service/create/FormServiceCreation.hpp"
-#include "CoordinatesSystemScreen.hpp"
+#include "coordinates/CoordinatesSystemScreen.hpp"
 #include "form/visitor/CoordinatesConverter.hpp"
-#include "CoordinatesSystemWorld.hpp"
+#include "coordinates/CoordinatesSystemWorld.hpp"
 #include "form/service/modify/FormServiceModify.hpp"
 
 #pragma comment(lib, "ws2_32.lib")
@@ -15,6 +15,10 @@ using namespace std;
 
 #define L 200
 
+/**
+ * Main Function
+ * @return Exit Status
+ */
 int main() {
     /*
      * MAIN GLOBAL (TEST EN BAS)
@@ -159,7 +163,6 @@ int main() {
 
                                 // initialize request
                                 string sform = (string) *css;
-                                cout << sform << endl;
                                 int size = sform.length();
                                 char c[size + 1];
                                 strcpy(c, sform.c_str());
@@ -173,6 +176,9 @@ int main() {
                 }
             } else break;
         }
+
+        char end[L] = "null";
+        socket->Send(end);
 
         delete socket;
         cout << "Client has been closed." << endl;

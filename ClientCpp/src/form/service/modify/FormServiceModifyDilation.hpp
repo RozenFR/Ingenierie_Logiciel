@@ -8,11 +8,17 @@
 #pragma once
 #include "FormServiceModifyCOR.hpp"
 #include "../../visitor/Dilation.hpp"
-#include "../../../CoordinatesSystemWorld.hpp"
-#include "../../../CoordinatesSystemScreen.hpp"
+#include "../../../coordinates/CoordinatesSystemWorld.hpp"
+#include "../../../coordinates/CoordinatesSystemScreen.hpp"
 
+/**
+ * Class managing dilation
+ */
 class FormServiceModifyDilation : public FormServiceModifyCOR {
 public:
+    /**
+     * User dilation of form
+     */
     virtual void solveFunction(int index) const {
         double x, y;
         double dilate;
@@ -40,12 +46,21 @@ public:
         CoordinatesSystemWorld::GetInstance()->AddForm(form1);
         CoordinatesSystemScreen::GetInstance()->RemoveForm(index);
         CoordinatesSystemScreen::GetInstance()->AddForm(form2);
-
     }
+
+    /**
+     * Method that verify choice is dilation
+     * @param input user choice
+     * @return if choice is correct
+     */
     virtual bool isFunction(int input) {
         return input == 1;
     }
 
+    /**
+    * Overload string operator
+    * @return string
+    */
     virtual operator string() const {
         ostringstream oss;
         oss << "[FormServiceModifyDilation]";
