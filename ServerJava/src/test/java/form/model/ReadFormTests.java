@@ -30,19 +30,19 @@ public class ReadFormTests {
 
         @Test
         void ReadSegmentTest() throws ReadFormException, FormException {
-            Segment seg = (Segment) ReadForm.StringToForm("(0,0);(0,1)");
+            Segment seg = (Segment) ReadForm.StringToForm("segment;(0,0);(0,1)");
             assertEquals(seg, this.segTest);
         }
 
         @Test
         void ReadCircleTest() throws ReadFormException, FormException {
-            Circle circ = (Circle) ReadForm.StringToForm("(0,0);1");
+            Circle circ = (Circle) ReadForm.StringToForm("circle;(0,0);1");
             assertEquals(circ, this.circTest);
         }
 
         @Test
         void ReadRectangleTest() throws ReadFormException, FormException {
-            Rect rec = (Rect) ReadForm.StringToForm("(0,0);(0,1);(1,1);(1,0)");
+            Rect rec = (Rect) ReadForm.StringToForm("rectangle;(0,0);(0,1);(1,1);(1,0)");
             assertEquals(rec, this.recTest);
         }
     }

@@ -1,11 +1,7 @@
 package form.read;
 
-import form.model.Form;
-import form.model.FormException;
-import form.model.Point;
-import form.model.Segment;
+import form.model.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,39 +18,34 @@ public class ReadSegment extends ReadFormCoR {
      */
     @Override
     public Segment SolveForm(String input) throws ReadFormException, FormException {
-        // Setup new Segment
-        Segment seg = new Segment();
-
-        // Split input
+        Segment segment = new Segment();
         String[] inputParsed = input.split(";");
 
-        // Verify initial condition
         if (input.isEmpty()) throw new ReadFormException("");
 
-        // Loop every coordinate str = (x, y)
+        boolean type = true;
+
         for(String str : inputParsed) {
-            // Setup Regex
-            Pattern p = Pattern.compile("([\\+\\-]{0,1}[0-9]*[.]{0,1}[0-9]+)");
-            Matcher m = p.matcher(str);
+            if (!type) {
+                Point point = new Point();
+                Pattern p = Pattern.compile("([\\+\\-]{0,1}[0-9]*[.]{0,1}[0-9]+)");
+                Matcher m = p.matcher(str);
+                ArrayList<String> mlist = new ArrayList<>();
 
-            // Setup List to Store all Match
-            ArrayList<String> mlist = new ArrayList<>();
-            while (m.find()) {
-                mlist.add(m.group());
-            }
-
-            // Create Point
-            Point point = new Point(Integer.parseInt(mlist.get(0)), Integer.parseInt(mlist.get(1)));
-
-            // Add Point to Segment
-            try {
-                seg.addPoint(point);
-            } catch (FormException e) {
-                throw new RuntimeException(e);
-            }
+                while (m.find()) {
+                    mlist.add(m.group());
+                }
+                point.setX(Integer.parseInt(mlist.get(0)));
+                point.setY(Integer.parseInt(mlist.get(1)));
+                try {
+                    segment.addPoint(point);
+                } catch (FormException e) {
+                    throw new RuntimeException(e);
+                }
+            } else type = false;
         }
 
-        return seg;
+        return segment;
     }
 
     /**

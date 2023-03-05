@@ -30,6 +30,7 @@ public class ReadRectangle extends ReadFormCoR {
                 Pattern p = Pattern.compile("([\\+\\-]{0,1}[0-9]*[.]{0,1}[0-9]+)");
                 Matcher m = p.matcher(str);
                 ArrayList<String> mlist = new ArrayList<>();
+
                 while (m.find()) {
                     mlist.add(m.group());
                 }
