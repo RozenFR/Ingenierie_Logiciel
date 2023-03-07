@@ -1,11 +1,11 @@
 #include <iostream>
 #include "server/Socket.hpp"
 #include "server/_WSA.hpp"
-#include "form/service/create/FormServiceCreation.hpp"
+#include "form/service/create/FormCreationService.hpp"
 #include "coordinates/CoordinatesSystemScreen.hpp"
 #include "form/visitor/CoordinatesConverter.hpp"
 #include "coordinates/CoordinatesSystemWorld.hpp"
-#include "form/service/modify/FormServiceModify.hpp"
+#include "form/service/modify/FormModifyService.hpp"
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -60,8 +60,8 @@ int main() {
         CoordinatesSystemWorld * csw = CoordinatesSystemWorld::GetInstance();
 
 
-        FormServiceCreation * formService = new FormServiceCreation();
-        FormServiceModify * formServiceModify = new FormServiceModify();
+        FormCreationService * formService = new FormCreationService();
+        FormModifyService * formServiceModify = new FormModifyService();
 
         // Loop Menu
         while (true) {

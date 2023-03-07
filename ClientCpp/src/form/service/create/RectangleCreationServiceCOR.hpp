@@ -2,24 +2,24 @@
 // Created by iamze on 23/02/2023.
 //
 
-#ifndef CLIENTCPP_RECTANGLESERVICECREATIONCOR_HPP
-#define CLIENTCPP_RECTANGLESERVICECREATIONCOR_HPP
+#ifndef CLIENTCPP_RECTANGLECREATIONSERVICECOR_HPP
+#define CLIENTCPP_RECTANGLECREATIONSERVICECOR_HPP
 
 #pragma once
-#include "FormServiceCreationCOR.hpp"
+#include "FormCreationServiceCOR.hpp"
 #include "../FormServiceException.hpp"
 #include "../../Rect.hpp"
-#include "CircleServiceCreationCOR.hpp"
+#include "CircleCreationServiceCOR.hpp"
 
 /**
  * Class managing creation of rectangle
  */
-class RectangleServiceCreationCOR : public FormServiceCreationCOR {
+class RectangleCreationServiceCOR : public FormCreationServiceCOR {
 public:
     /**
      * Constructor of RectangleServiceCreationCOR
      */
-    RectangleServiceCreationCOR() {
+    RectangleCreationServiceCOR() {
 
     }
 
@@ -27,7 +27,7 @@ public:
      * Constructor of RectangleServiceCreationCOR, set next in construction
      * @param fs
      */
-    RectangleServiceCreationCOR(FormServiceCreationCOR * fs) {
+    RectangleCreationServiceCOR(FormCreationServiceCOR * fs) {
         setNext(fs);
     }
 
@@ -103,4 +103,4 @@ public:
 };
 
 
-#endif //CLIENTCPP_RECTANGLESERVICECREATIONCOR_HPP
+#endif //CLIENTCPP_RECTANGLECREATIONSERVICECOR_HPP

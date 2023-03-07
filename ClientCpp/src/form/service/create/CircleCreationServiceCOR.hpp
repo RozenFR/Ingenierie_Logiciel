@@ -2,11 +2,11 @@
 // Created by iamze on 23/02/2023.
 //
 
-#ifndef CLIENTCPP_CIRCLESERVICECREATIONCOR_HPP
-#define CLIENTCPP_CIRCLESERVICECREATIONCOR_HPP
+#ifndef CLIENTCPP_CIRCLECREATIONSERVICECOR_HPP
+#define CLIENTCPP_CIRCLECREATIONSERVICECOR_HPP
 
 #pragma once
-#include "FormServiceCreationCOR.hpp"
+#include "FormCreationServiceCOR.hpp"
 #include "../FormServiceException.hpp"
 #include "../../Circle.hpp"
 #include "../../../coordinates/CoordinatesSystemScreen.hpp"
@@ -15,12 +15,12 @@
 /**
  * Class managing creation of circle
  */
-class CircleServiceCreationCOR : public FormServiceCreationCOR {
+class CircleCreationServiceCOR : public FormCreationServiceCOR {
 public:
     /**
      * Constructor of CircleServiceCreationCOR
      */
-    CircleServiceCreationCOR() {
+    CircleCreationServiceCOR() {
 
     }
 
@@ -28,7 +28,7 @@ public:
      * Constructor of CircleServiceCreationCOR, set next in construction
      * @param fs next node
      */
-    CircleServiceCreationCOR(FormServiceCreationCOR * fs) {
+    CircleCreationServiceCOR(FormCreationServiceCOR * fs) {
         setNext(fs);
     }
 
@@ -82,4 +82,4 @@ public:
 };
 
 
-#endif //CLIENTCPP_CIRCLESERVICECREATIONCOR_HPP
+#endif //CLIENTCPP_CIRCLECREATIONSERVICECOR_HPP

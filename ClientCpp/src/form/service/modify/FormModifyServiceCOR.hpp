@@ -1,29 +1,43 @@
 //
-// Created by iamze on 23/02/2023.
+// Created by iamze on 01/03/2023.
 //
 
-#ifndef CLIENTCPP_FORMSERVICECREATIONCOR_HPP
-#define CLIENTCPP_FORMSERVICECREATIONCOR_HPP
+#ifndef CLIENTCPP_FORMMODIFYSERVICECOR_HPP
+#define CLIENTCPP_FORMMODIFYSERVICECOR_HPP
 
+#pragma once
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <ostream>
 #include "../FormServiceException.hpp"
+#include "../../Form.hpp"
+#include "../../visitor/CoordinatesConverter.hpp"
 
 using namespace std;
 
 /**
- * Chain of Responsability to create form
+ * Chain of Responsability to modify form
  */
-class FormServiceCreationCOR {
+class FormModifyServiceCOR {
 protected:
     // Represent the node of chain of resposability
-    FormServiceCreationCOR * m_next;
+    FormModifyServiceCOR * m_next;
 public:
+
+    /**
+     * Destroyer of FormServiceCreationCOR
+     */
+    ~FormModifyServiceCOR() {
+        delete m_next;
+    }
 
     /**
      * Method that set next node in chain of creation responsability
      * @param formService new node
      * @return next
      */
-    FormServiceCreationCOR * setNext(FormServiceCreationCOR * formService) {
+    FormModifyServiceCOR * setNext(FormModifyServiceCOR * formService) {
         m_next = formService;
         return m_next;
     }
@@ -32,27 +46,20 @@ public:
      * Method that get next
      * @return
      */
-    FormServiceCreationCOR * getNext() const {
+    FormModifyServiceCOR * getNext() const {
         return m_next;
-    }
-
-    /**
-     * Destroyer of FormServiceCreationCOR
-     */
-    ~FormServiceCreationCOR() {
-        delete m_next;
     }
 
     /**
      * Method that solve current COR
      * @param input user choice
      */
-    void solve(int input) {
-        if (isForm(input)) {
-            solveForm();
+    void solve(int input, int index) {
+        if (isFunction(input)) {
+            solveFunction(index);
         } else {
             if (m_next == NULL) throw FormServiceException("Not in range of selection.");
-            m_next->solve(input);
+            m_next->solve(input, index);
         }
     }
 
@@ -67,21 +74,21 @@ public:
     }
 
     /**
-     * Abstract method that solve creation of form
+     * Abstract method that solve modify of form
      */
-    virtual void solveForm() const = 0;
+    virtual void solveFunction(int index) const = 0;
 
     /**
      * Abstract method that verify if input is right
      * @param input user choice
      * @return is user is right in node
      */
-    virtual bool isForm(int input) = 0;
+    virtual bool isFunction(int input) = 0;
 };
 
-inline ostream& operator<<(ostream &os, const FormServiceCreationCOR &f) {
+inline ostream& operator<<(ostream &os, const FormModifyServiceCOR &f) {
     return os << (string) f << " - " << (string) *f.getNext();
 };
 
 
-#endif //CLIENTCPP_FORMSERVICECREATIONCOR_HPP
+#endif //CLIENTCPP_FORMMODIFYSERVICECOR_HPP

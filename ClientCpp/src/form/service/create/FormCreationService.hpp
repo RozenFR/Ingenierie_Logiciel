@@ -2,25 +2,25 @@
 // Created by iamze on 23/02/2023.
 //
 
-#ifndef CLIENTCPP_FORMSERVICECREATION_HPP
-#define CLIENTCPP_FORMSERVICECREATION_HPP
+#ifndef CLIENTCPP_FORMCREATIONSERVICE_HPP
+#define CLIENTCPP_FORMCREATIONSERVICE_HPP
 
 #pragma once
-#include "FormServiceCreationCOR.hpp"
-#include "RectangleServiceCreationCOR.hpp"
-#include "CircleServiceCreationCOR.hpp"
+#include "FormCreationServiceCOR.hpp"
+#include "RectangleCreationServiceCOR.hpp"
+#include "CircleCreationServiceCOR.hpp"
 
 using namespace std;
 
-class FormServiceCreation {
+class FormCreationService {
 protected:
     /**
      * method that process user input to activate CreationService
      * @param input user choice
      */
     void processInput(int input) {
-        FormServiceCreationCOR * fs;
-        fs = new RectangleServiceCreationCOR(new CircleServiceCreationCOR());
+        FormCreationServiceCOR * fs;
+        fs = new RectangleCreationServiceCOR(new CircleCreationServiceCOR());
         fs->solve(input);
     }
 
@@ -28,7 +28,7 @@ public:
     /**
      * Constructor of FormServiceCreation
      */
-    FormServiceCreation() {
+    FormCreationService() {
 
     }
 
@@ -42,4 +42,4 @@ public:
 };
 
 
-#endif //CLIENTCPP_FORMSERVICECREATION_HPP
+#endif //CLIENTCPP_FORMCREATIONSERVICE_HPP

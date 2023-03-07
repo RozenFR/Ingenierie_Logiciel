@@ -2,61 +2,59 @@
 // Created by iamze on 01/03/2023.
 //
 
-#ifndef CLIENTCPP_FORMSERVICEMODIFYROTATE_HPP
-#define CLIENTCPP_FORMSERVICEMODIFYROTATE_HPP
+#ifndef CLIENTCPP_FORMDILATIONMODIFYSERVICECOR_HPP
+#define CLIENTCPP_FORMDILATIONMODIFYSERVICECOR_HPP
 
 #pragma once
-#include "FormServiceModifyCOR.hpp"
-#include "../../visitor/Rotate.hpp"
+#include "FormModifyServiceCOR.hpp"
+#include "../../visitor/Dilation.hpp"
 #include "../../../coordinates/CoordinatesSystemWorld.hpp"
 #include "../../../coordinates/CoordinatesSystemScreen.hpp"
 
 /**
- * Class managing Rotate
+ * Class managing dilation
  */
-class FormServiceModifyRotate : public FormServiceModifyCOR {
+class FormDilationModifyServiceCOR : public FormModifyServiceCOR {
 public:
     /**
-     * User rotation of form
+     * User dilation of form
      */
     virtual void solveFunction(int index) const {
         double x, y;
-        double rad;
+        double dilate;
 
         // User Service Input for Dilation
         // Set Point of Dilation
-        cout << "xr = " << endl;
+        cout << "xd = " << endl;
         cin >> x;
         cout << endl;
-        cout << "yr = " << endl;
+        cout << "yd = " << endl;
         cin >> y;
         cout << endl;
 
         // Set Dilation Coefficient
-        // We ask in degree because when calling functionality we convert degree to radian
-        cout << "Angle in degree = " << endl;
-        cin >> rad;
+        cout << "Coefficient of Dilation = " << endl;
+        cin >> dilate;
 
-        Rotate * rotate = new Rotate(x, y, rad);
-        Form * form1 = CoordinatesSystemWorld::GetInstance()->getForms()[index]->copy();
+        Dilation * dilation = new Dilation(x, y, dilate);
+        Form * form1 = CoordinatesSystemWorld::GetInstance()->getForms()[index];
 
-        form1->accept(rotate);
+        form1->accept(dilation);
         Form * form2 = form1->copy(); // Copy form 1 (Processed by Rotate)
 
-        // Remove Form from vector and add them back with right coordinates
         CoordinatesSystemWorld::GetInstance()->RemoveForm(index);
-        CoordinatesSystemScreen::GetInstance()->RemoveForm(index);
         CoordinatesSystemWorld::GetInstance()->AddForm(form1);
+        CoordinatesSystemScreen::GetInstance()->RemoveForm(index);
         CoordinatesSystemScreen::GetInstance()->AddForm(form2);
     }
 
     /**
-     * Method that verify choice is rotate
+     * Method that verify choice is dilation
      * @param input user choice
      * @return if choice is correct
      */
     virtual bool isFunction(int input) {
-        return input == 2;
+        return input == 1;
     }
 
     /**
@@ -65,10 +63,10 @@ public:
     */
     virtual operator string() const {
         ostringstream oss;
-        oss << "[FormServiceModifyRotate]";
+        oss << "[FormDilationModifyServiceCOR]";
         return oss.str();
     }
 };
 
 
-#endif //CLIENTCPP_FORMSERVICEMODIFYROTATE_HPP
+#endif //CLIENTCPP_FORMDILATIONMODIFYSERVICECOR_HPP
