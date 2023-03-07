@@ -24,6 +24,14 @@ protected:
     // Represent the node of chain of resposability
     FormServiceModifyCOR * m_next;
 public:
+
+    /**
+     * Destroyer of FormServiceCreationCOR
+     */
+    ~FormServiceModifyCOR() {
+        delete m_next;
+    }
+
     /**
      * Method that set next node in chain of creation responsability
      * @param formService new node
@@ -40,13 +48,6 @@ public:
      */
     FormServiceModifyCOR * getNext() const {
         return m_next;
-    }
-
-    /**
-     * Destroyer of FormServiceCreationCOR
-     */
-    ~FormServiceModifyCOR() {
-        delete m_next;
     }
 
     /**

@@ -13,10 +13,9 @@ using namespace std;
 
 class FileDAO {
 public:
-    virtual void create() const = 0;
-    virtual vector<Form *> read() const = 0;
-    virtual void update(vector<Form *> forms) const = 0;
-    virtual void remove(vector<Form *> forms) const = 0;
+    virtual void read(string filename) const = 0;
+
+    virtual void write(string filename) const = 0;
 };
 
 
