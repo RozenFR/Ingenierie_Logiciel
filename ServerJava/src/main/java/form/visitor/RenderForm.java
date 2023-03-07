@@ -1,4 +1,4 @@
-package form;
+package form.visitor;
 
 import form.model.Circle;
 import form.model.Rect;
@@ -15,22 +15,22 @@ import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
 public class RenderForm extends Canvas implements Runnable, VisitorForm {
+    private BufferStrategy strategy; // buffer strategy
+    private boolean running = false; // running
+    private int delay = 10; // time to delay
 
-    private static final long serialVersionUID = 1L;
-    private BufferStrategy strategy;
-    private boolean running = false;
-    private int delay = 10;
+    JFrame frame; // Main Frame for client
 
-    JFrame frame;
+    private ArrayList<Circle> circles = new ArrayList<>(); // List of circle
+    private ArrayList<Rect> rectangles = new ArrayList<>(); // list of rectangle
 
-    private ArrayList<Circle> circles = new ArrayList<>();
-    private ArrayList<Rect> rectangles = new ArrayList<>();
-
-    private static final int max = 255;
-    private static final int min = 0;
-
+    /**
+     * Constructor of RenderForm
+     */
     public RenderForm() {
+        // Define size of frame
         setPreferredSize(new Dimension(1920, 1080));
+        // Set e as escape key
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -40,6 +40,7 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
             }
         });
 
+        // Set frame
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this);
@@ -48,10 +49,18 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
         this.start();
     }
 
+    /**
+     * Method to get AWT Frame
+     * @return frame
+     */
     public JFrame getFrame() {
         return frame;
     }
 
+    /**
+     * Method to draw every circle
+     * @param g g bind in strategy
+     */
     private void drawCircle(Graphics g) {
         // Set Color of Circle
         g.setColor(Color.ORANGE);
@@ -62,6 +71,10 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
         }
     }
 
+    /**
+     * Method to draw every Rectangle
+     * @param g g bind in strategy
+     */
     private void drawRectangle(Graphics g) {
         // Set Color of Rectangle
         g.setColor(Color.MAGENTA);
@@ -78,32 +91,59 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
         }
     }
 
+    /**
+     * Method to get all circles
+     * @return list of circle
+     */
     public ArrayList<Circle> getCircles() {
         return circles;
     }
 
+    /**
+     * Method to set list of circle
+     * @param circles list of circle
+     */
     public void setCircles(ArrayList<Circle> circles) {
         this.circles = circles;
     }
 
+    /**
+     * Method to get all rectangles
+     * @return list of rectangle
+     */
     public ArrayList<Rect> getRectangles() {
         return rectangles;
     }
 
+    /**
+     * Method to set list of rectangle
+     * @param rectangles list of rectangle
+     */
     public void setRectangles(ArrayList<Rect> rectangles) {
         this.rectangles = rectangles;
     }
 
+    /**
+     * Method to add a circle in list
+     * @param circle circle to add
+     */
     public void addCircle(Circle circle) {
         if (circle == null)  throw new IllegalArgumentException("circle is null.");
         circles.add(circle);
     }
 
-        public void addRect(Rect rect) {
+    /**
+     * Method to add a rectangle in list
+     * @param rect rectangle to add
+     */
+    public void addRect(Rect rect) {
         if (rect == null)  throw new IllegalArgumentException("rect is null.");
         rectangles.add(rect);
     }
 
+    /**
+     * Method start to implements buffer strategy
+     */
     public void start() {
         createBufferStrategy(2);
         strategy = getBufferStrategy();
@@ -111,6 +151,9 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
         new Thread(this).start();
     }
 
+    /**
+     * Thread that will update frame
+     */
     public void run() {
         while (running) {
             try {
@@ -126,6 +169,10 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
         System.exit(0);
     }
 
+    /**
+     * Method to draw everything
+     * @param g g bind to buffer
+     */
     private void draw(Graphics g) {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
@@ -135,7 +182,6 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
 
     /**
      * Manage all functionalities of Rectangle
-     *
      * @param rect rectangle object to apply functionalities
      */
     @Override
@@ -145,7 +191,6 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
 
     /**
      * Manage all functionalities of Circle
-     *
      * @param circle circle object to apply functionalities
      */
     @Override
@@ -155,7 +200,6 @@ public class RenderForm extends Canvas implements Runnable, VisitorForm {
 
     /**
      * Manage all functionalities of Circle
-     *
      * @param segment segment object to apply functionalities
      */
     @Override

@@ -1,6 +1,6 @@
 package form.server;
 
-import form.RenderForm;
+import form.visitor.RenderForm;
 import form.model.Form;
 import form.read.ReadForm;
 import form.read.ReadFormException;
@@ -10,20 +10,25 @@ import java.io.*;
 import java.net.Socket;
 
 public class FormInterlocutor extends Thread {
+    // Socket linked -> client thread
     private Socket m_socket;
+    // Number of connection
     private int m_noConnexion;
 
+    // input : request
     private BufferedReader inputFlux;
+    // message to send to client
     private PrintStream outputFlux;
+    // Frame of client
     private RenderForm renderForm;
 
 
     /**
-     *
-     * @param socket
-     * @param group
-     * @param noConnexion
-     * @param renderForm
+     * Constructor of FormInterlocutor
+     * @param socket socket of client
+     * @param group thread group of client
+     * @param noConnexion number of client
+     * @param renderForm frame of client
      */
     public FormInterlocutor(Socket socket, ThreadGroup group, int noConnexion, RenderForm renderForm) throws IOException {
         super(group, "FormInterlocutor");
@@ -45,6 +50,9 @@ public class FormInterlocutor extends Thread {
         this.renderForm = renderForm;
     }
 
+    /**
+     * Thread that will listen to request from client
+     */
     @Override
     public void run() {
 

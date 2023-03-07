@@ -6,15 +6,23 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class of COR that manage Segment
+ */
 public class ReadSegment extends ReadFormCoR {
 
+    /**
+     * Constructor of ReadSegment
+     * @param next
+     */
     public ReadSegment(ReadFormCoR next) {
         super(next);
     }
 
     /**
-     * @param input
-     * @return
+     * Method that solve segment
+     * @param input request
+     * @return form
      */
     @Override
     public Segment SolveForm(String input) throws ReadFormException, FormException {
@@ -49,8 +57,9 @@ public class ReadSegment extends ReadFormCoR {
     }
 
     /**
-     * @param input
-     * @return
+     * Method that verify if request is segment
+     * @param input request
+     * @return if request is segment
      */
     @Override
     public boolean isForm(String input) {

@@ -6,14 +6,22 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class of COR that manage Rectangle
+ */
 public class ReadRectangle extends ReadFormCoR {
+    /**
+     * Constructor of ReadRectangle
+     * @param next
+     */
     public ReadRectangle(ReadFormCoR next) {
         super(next);
     }
 
     /**
-     * @param input
-     * @return
+     * Method that solve rectangle
+     * @param input request
+     * @return form
      */
     @Override
     public Form SolveForm(String input) throws ReadFormException, FormException {
@@ -48,8 +56,9 @@ public class ReadRectangle extends ReadFormCoR {
     }
 
     /**
-     * @param input
-     * @return
+     * Method that verify if request is rectangled
+     * @param input request
+     * @return if request is circle
      */
     @Override
     public boolean isForm(String input) {

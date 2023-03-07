@@ -1,5 +1,8 @@
 package form.model;
 
+/**
+ * Class Manage Form Exception
+ */
 public class FormException extends Exception {
     /**
      * Constructs a new exception with {@code null} as its detail message.

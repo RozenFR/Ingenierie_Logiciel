@@ -1,9 +1,7 @@
 package form.server;
 
-import form.RenderForm;
-import form.model.Circle;
+import form.visitor.RenderForm;
 import form.model.FormException;
-import form.model.Point;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -22,10 +20,10 @@ public class FormServer {
             throw new RuntimeException(e);
         }
 
+        // Set Server
         InetAddress machine;
         int localPort;
         ThreadGroup group;
-
         try {
             localPort = server.getLocalPort();
             machine = InetAddress.getLocalHost();

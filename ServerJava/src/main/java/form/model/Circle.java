@@ -4,24 +4,26 @@ import form.visitor.VisitorForm;
 
 import java.util.Objects;
 
+/**
+ * Class that manage Circle
+ */
 public class Circle extends GroupForm {
-    /**
-     *
-     */
+    // Center
     private Point m_center = null;
-
+    // Radius of circle
     private int m_radius = 0;
 
     /**
-     *
+     * Constructor of Circle
      */
     public Circle() {
 
     }
 
     /**
-     *
-     * @param center
+     * Constructor of circle
+     * @param center center point
+     * @param radius radius of circle
      * @throws FormException
      */
     public Circle(Point center, int radius) throws FormException {
@@ -30,8 +32,8 @@ public class Circle extends GroupForm {
     }
 
     /**
-     *
-     * @param p
+     * Method to set Center point
+     * @param p point to set
      * @throws FormException
      */
     public void setCenter(Point p) throws FormException {
@@ -40,9 +42,8 @@ public class Circle extends GroupForm {
     }
 
     /**
-     *
-     * @param radius
-     * @return
+     * Method to set radius
+     * @param radius radius of circle
      */
     public void setRadius(int radius) throws FormException {
         if (radius < 0) throw new FormException("Circle : radius must be > 0.");
@@ -50,16 +51,24 @@ public class Circle extends GroupForm {
     }
 
     /**
-     *
-     * @return
+     * Method to get center point
+     * @return Center Point
      */
     public Point getCenter() {
         return this.m_center;
     }
 
     /**
-     *
-     * @param point
+     * Method to get radius of circle
+     * @return radius of circle
+     */
+    public int getRadius() {
+        return this.m_radius;
+    }
+
+    /**
+     * Method to Add a Point
+     * @param point point to add
      * @throws FormException
      */
     @Override
@@ -80,6 +89,11 @@ public class Circle extends GroupForm {
         vf.visit(this);
     }
 
+    /**
+     * Overload equals
+     * @param o other circle
+     * @return if every value equals
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,12 +102,13 @@ public class Circle extends GroupForm {
         return Double.compare(circle.m_radius, m_radius) == 0 && m_center.equals(circle.m_center);
     }
 
+    /**
+     * overload hashcode
+     * @return hashcode
+     */
     @Override
     public int hashCode() {
         return Objects.hash(m_center, m_radius);
     }
 
-    public int getRadius() {
-        return this.m_radius;
-    }
 }
