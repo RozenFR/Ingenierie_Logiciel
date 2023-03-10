@@ -20,6 +20,11 @@ public:
         delete m_next;
     }
 
+    FileServiceCOR * setNext(FileServiceCOR * fsc) {
+        m_next = fsc;
+        return m_next;
+    }
+
     void solve(int input) const {
         if (isChoice(input)) solveFile(input);
         else {

@@ -11,7 +11,7 @@
 
 class FileSaveServiceCOR : public FileServiceCOR {
     bool isChoice(int input) const override {
-        return input == 1;
+        return input == 2;
     }
 
     void solveFile(int input) const override {

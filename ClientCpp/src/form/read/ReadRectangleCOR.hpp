@@ -12,6 +12,7 @@
 
 class ReadRectangleCOR : public ReadFormCOR {
     bool isForm(string input) const override {
+        cout << "Rectangle : " << input << endl;
         return input.find("rectangle") != string::npos;
     }
 
@@ -21,7 +22,7 @@ class ReadRectangleCOR : public ReadFormCOR {
 
         vector<double> list;
         smatch match;
-        regex rgx(R"([\+\-]{0,1}[0-9]*[.]{0,1}[0-9]+)");
+        regex rgx("([\\+\\-]{0,1}[0-9]*[.]{0,1}[0-9]+)");
 
         while (regex_search(input, match, rgx)) {
             list.push_back(stod(match.str(0)));

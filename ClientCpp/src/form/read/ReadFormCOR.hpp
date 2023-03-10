@@ -32,6 +32,7 @@ public:
             if (m_next == nullptr) throw Error("ReadFormCOR : fail to read form.");
             m_next->solve(input);
         }
+        return nullptr;
     }
 
     virtual bool isForm(string input) const = 0;

@@ -15,7 +15,8 @@ class ReadTXTFile : public ReadFileCOR {
     }
 
     void solveLoad(string input) const override {
-        TXTFileDAO tfc; tfc.read(input);
+        TXTFileDAO tfc;
+        tfc.read(input);
     }
 };
 

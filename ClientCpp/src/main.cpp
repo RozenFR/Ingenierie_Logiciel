@@ -6,6 +6,7 @@
 #include "form/visitor/CoordinatesConverter.hpp"
 #include "coordinates/CoordinatesSystemWorld.hpp"
 #include "form/service/modify/FormModifyService.hpp"
+#include "form/service/file/FileService.hpp"
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -70,6 +71,7 @@ int main() {
             cout << "1 - Create Form" << endl;
             cout << "2 - Remove Form" << endl;
             cout << "3 - Modify Form" << endl;
+            cout << "4 - File Options" << endl;
             cout << "0 - Leaving Client" << endl;
 
             int inputMenu;
@@ -173,7 +175,27 @@ int main() {
 
                         } else break;
                     }
-                }
+                } else if (inputMenu == 4) { // File Option
+                    cout << "============== File Options ==============" << endl;
+                    cout << "1 - Load File" << endl;
+                    cout << "2 - Save File" << endl;
+                    cout << "0 - Go Back" << endl;
+
+                    int inputFile;
+                    cin >> inputFile;
+                    if (inputFile != 0) {
+                        FileService::processFile(inputFile);
+                        // initialize request
+                        string sform = (string) *css;
+                        cout << sform << endl;
+                        int size = sform.length();
+                        char c[size + 1];
+                        strcpy(c, sform.c_str());
+
+                        // Send Remove Request to Screen
+                        socket->Send(c);
+                    }
+                } else break;
             } else break;
         }
 

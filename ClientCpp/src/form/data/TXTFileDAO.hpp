@@ -22,29 +22,26 @@ public:
      * @param filename name of the file
      */
     void read(string filename) const override {
-        vector<Form *> v_forms;
+        ifstream newfile(filename);
 
-        // Open file
-        fstream fs;
-        fs.open(filename, ios::in);
-
-        // Loop each line of file
-        string output;
-        while (!fs.eof()) {
-            fs >> output;
-            Form * form = ReadForm::StringToForm(output);
-            if (form == nullptr) throw Error("TXTFileDAO : Format of form in the file " +
-                                            filename + " is incorrect.");
-            CoordinatesSystemWorld::GetInstance()->AddForm(form);
-            CoordinatesSystemScreen::GetInstance()->AddForm(form);
+        if (newfile.is_open()) { //checking whether the file is open
+            string line;
+            //read data from file object and put it into string.
+            while(getline(newfile, line)){
+                cout << "Line : " << line << endl;
+                Form * form = ReadForm::StringToForm(line);
+                CoordinatesSystemWorld::GetInstance()->AddForm(form);
+                CoordinatesSystemScreen::GetInstance()->AddForm(form);
+            }
+            //close the file object.
+            newfile.close();
         }
     }
 
     void write(string filename) const override {
         fstream fs;
-
         // Create file if not created
-        fs.open(filename, ios::out | ios::app);
+        fs.open(filename, ios::in | ios::app);
 
         // Verify if file is created
         if (!fs) throw Error("File has not been created : " + filename);
@@ -55,7 +52,7 @@ public:
             }
         }
         fs.close();
-        cout << "File has been writen !";
+        cout << "File has been writen !" << endl;
     }
 };
 
